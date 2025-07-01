@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./frontend/smrt_stdy
+      dockerfile: Dockerfile
+    container_name: smrt-frontend
+    ports:
+      - "3000:80"
+    networks:
+      - smrt-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: smrt-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - mongo
+    networks:
+      - smrt-network
+
+  mongo:
+    image: mongo:6
+    container_name: smrt-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - smrt-network
+
+volumes:
+  mongo_data:
+
+networks:
+  smrt-network:
+    driver: bridge

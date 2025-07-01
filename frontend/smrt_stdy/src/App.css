@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+   themes: light --default, dark --prefersdark;
+ }
+
+body {
+  background: linear-gradient(to bottom right, #e0e6ed, #f4f6f8);
+}
+
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
